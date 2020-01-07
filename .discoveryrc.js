@@ -14,13 +14,9 @@ module.exports = {
   },
   cache: false,
   //cache: __dirname + "/regain/.cache",
-  prepare: __dirname + '/regain/prepare.js',
+  prepare: `${__dirname}/dist/prepare/index.js`,
   view: {
     basedir: __dirname,
-    assets: [
-      './regain/ui/page/default.js',
-      './regain/ui/page/file.js',
-      './regain/ui/sidebar.js'
-    ]
+    assets: [`${__dirname}/dist/ui/index.js`]
   }
 };

@@ -5,3 +5,6 @@ manifest.json
 # Local Netlify folder
 .netlify
 build
+dist
+.cache
+.parcel-cache
