@@ -2,7 +2,7 @@ discovery.page.define(
     "file",
     {
         view: "context",
-        data: "..children.pick(<(path=#.id)>)",
+        data: ".pick(<(path=#.id)>)",
         content: {
             view: "switch",
             content: [

@@ -3,16 +3,19 @@
   "private": true,
   "scripts": {
     "start": "node .",
-    "start:dev": "yarn start",
+    "start:dev": "yarn regain",
     "regain": "discovery",
     "regain-build": "discovery-build",
     "regain-deploy": "npm run regain-build && gh-pages -d build/default"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@discoveryjs/cli": "^1.4.1"
+  },
   "devDependencies": {
-    "@discoveryjs/discovery": "^1.0.0-beta.12",
-    "gh-pages": "^2.0.1",
     "@babel/parser": "^7.3.1",
-    "async-directory-tree": "^2.3.1"
+    "@discoveryjs/discovery": "^1.0.0-beta.12",
+    "async-directory-tree": "^2.3.1",
+    "gh-pages": "^2.0.1",
+    "globby": "^11.0.0"
   }
 }
