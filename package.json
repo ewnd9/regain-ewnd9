@@ -1,0 +1,18 @@
+{
+  "name": "node",
+  "private": true,
+  "scripts": {
+    "start": "node .",
+    "start:dev": "yarn start",
+    "regain": "discovery",
+    "regain-build": "discovery-build",
+    "regain-deploy": "npm run regain-build && gh-pages -d build/default"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@discoveryjs/discovery": "^1.0.0-beta.12",
+    "gh-pages": "^2.0.1",
+    "@babel/parser": "^7.3.1",
+    "async-directory-tree": "^2.3.1"
+  }
+}
