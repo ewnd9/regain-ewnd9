@@ -11,11 +11,6 @@ module.exports = {
         extensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
       }
     );
-
-    //   return require("./regain/crawler").default(path, {
-    //       exclude: /(node_modules|tests|\.git)/,
-    //       extensions: /\.(ts|js|json)$/
-    //   });
   },
   cache: false,
   //cache: __dirname + "/regain/.cache",
