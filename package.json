@@ -2,11 +2,11 @@
   "name": "node",
   "private": true,
   "scripts": {
-    "start": "node .",
-    "start:dev": "yarn regain",
-    "regain": "discovery",
-    "regain-build": "discovery-build",
-    "regain-deploy": "npm run regain-build && gh-pages -d build/default"
+    "start": "yarn start:dev",
+    "start:dev": "discovery",
+    "prebuild": "rm -rf build",
+    "build": "discovery-build",
+    "deploy": "yarn build && rm -rf .netlify/build && mv build .netlify && netlify deploy"
   },
   "dependencies": {
     "@discoveryjs/cli": "^1.4.1"
