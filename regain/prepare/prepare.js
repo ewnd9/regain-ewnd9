@@ -1,4 +1,10 @@
+const {parse} = require('../parsers');
+
 discovery.setPrepare(data => {
+    data.forEach(datum => {
+        datum.ast = parse(datum.content, datum.path);
+    });
+
     discovery.addQueryHelpers({
         files: (current, regexp) => {
           if (regexp == null) {
