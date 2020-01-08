@@ -8,7 +8,7 @@ discovery.page.define('default', [
     data: [
       {
         title: 'Files',
-        query: '.files',
+        query: '.projects.files',
         view: JSON.stringify({
           view: 'ul',
           item: ['link:{ href: "#file:" + path, text: path }']
@@ -17,7 +17,7 @@ discovery.page.define('default', [
       {
         title: "require('fs')",
         query:
-          '.files.({path: .path, imports: ast.program.body.[type="VariableDeclaration"].declarations.init.[callee.name="require"].arguments.value}).[imports~=/fs/]',
+          '.projects.files.({path: .path, imports: ast.program.body.[type="VariableDeclaration"].declarations.init.[callee.name="require"].arguments.value}).[imports~=/fs/]',
         view: JSON.stringify({
           view: 'ul',
           item: ['link:{ href: "#file:" + path, text: path }']
@@ -26,7 +26,7 @@ discovery.page.define('default', [
       {
         title: "import 'react'",
         query:
-          '.files.({path: .path, imports: ast.program.body.[type="ImportDeclaration"].source.value}).[imports~=/react/]',
+          '.projects.files.({path: .path, imports: ast.program.body.[type="ImportDeclaration"].source.value}).[imports~=/react/]',
         view: JSON.stringify({
           view: 'ul',
           item: ['link:{ href: "#file:" + path, text: path }']
@@ -35,7 +35,7 @@ discovery.page.define('default', [
       {
         title: 'all packages names',
         query:
-          '.files.[path~=/package.json$/ and ast.private != true].({name: ast.name, path})',
+          '.projects.files.[path~=/package.json$/ and ast.private != true].({name: ast.name, path})',
         view: JSON.stringify({
           view: 'ul',
           item: [

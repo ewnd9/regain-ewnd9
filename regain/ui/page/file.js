@@ -2,7 +2,8 @@ discovery.page.define(
     "file",
     {
         view: "context",
-        data: ".files.pick(<(path=#.id)>)",
+        // data: ".projects.files.pick(<(path=)>)",
+        data: ".projects.pick(<(.files.path has #.id)>).({...,file:.files.pick(<path=#.id>)})",
         content: {
             view: "switch",
             content: [
@@ -12,11 +13,11 @@ discovery.page.define(
                 },
                 {
                     content: [
-                        "h1:name",
+                        "h1:.file.name + ' (' + .full_name + ')'",
                         "h3:'source'",
                         {
                             view: 'source',
-                            data: '({ content: content, syntax: "javascript" })'
+                            data: '({ content: .file.content, syntax: "javascript" })'
                         }
                     ]
                 }

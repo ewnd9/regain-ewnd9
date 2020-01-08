@@ -5,12 +5,21 @@ module.exports = {
     const projects = manifest.projects.filter(project => !project.fork);
 
     return {
-      files: require('./regain/crawler-globby').default(
-        projects.map(project => `./repos/github.com/${project.full_name}`),
-        {
-          extensions: ['js', 'jsx', 'ts', 'tsx', 'json']
-        }
-      )
+      projects: projects.map(project => {
+        const { resource, owner, name } = require('git-url-parse')(
+          project.clone_url
+        );
+
+        return {
+          full_name: project.full_name,
+          files: require('./regain/crawler-globby').default(
+            `./repos/${resource}/${owner}/${name}`,
+            {
+              extensions: ['js', 'jsx', 'ts', 'tsx', 'json']
+            }
+          )
+        };
+      })
     };
   },
   cache: false,

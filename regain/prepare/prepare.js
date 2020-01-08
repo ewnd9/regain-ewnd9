@@ -3,8 +3,10 @@ const { parse } = require('../parsers');
 discovery.setPrepare(async data => {
   const date = Date.now();
 
-  data.files.forEach(datum => {
-    datum.ast = parse(datum.content, datum.path);
+  data.projects.forEach(project => {
+    project.files.forEach(file => {
+      file.ast = parse(file.content, file.path);
+    });
   });
 
   data.stats = {
