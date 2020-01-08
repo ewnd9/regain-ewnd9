@@ -1,3 +1,5 @@
+import prettyBytes from 'pretty-bytes';
+
 discovery.page.define('default', [
   'h1:"regain-ewnd9"',
   'h2:"Stats"',
@@ -36,7 +38,9 @@ discovery.page.define('default', [
           '.files.[path~=/package.json$/ and ast.private != true].({name: ast.name, path})',
         view: JSON.stringify({
           view: 'ul',
-          item: ['link:{ href: "#file:" + path, text: name + " (" + path + ")" }']
+          item: [
+            'link:{ href: "#file:" + path, text: name + " (" + path + ")" }'
+          ]
         })
       }
       // {title: 'Problems', query: 'dict.[no match or refs.resolved.[no match]]', href: '#problems'},
@@ -51,17 +55,18 @@ discovery.page.define('default', [
       })`
     }
   },
-  'h2:"List"',
+  'h2:"Build"',
   {
-    view: 'list',
-    data: `
-      .files
-    `,
-    item: [
-      {
-        view: 'ul',
-        item: ['link:{ href: "#file:" + path, text: path }']
-      }
-    ]
+    view: 'context',
+    data: data => [
+      `AST build: ${data.stats.astBuild} ms`,
+      `data size: ${prettyBytes(data.stats.dataSize)}`,
+      `indexeddb used: ${prettyBytes(data.stats.indexeddb.used)}`,
+      `indexeddb remaining: ${prettyBytes(data.stats.indexeddb.remaining)}`,
+    ],
+    content: {
+      view: 'ul',
+      item: 'text'
+    }
   }
 ]);

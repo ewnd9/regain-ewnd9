@@ -9,6 +9,7 @@ discovery.setPrepare(async data => {
 
   data.stats = {
     astBuild: Date.now() - date,
+    // https://stackoverflow.com/a/12205668
     dataSize: encodeURI(JSON.stringify(data)).split(/%..|./).length - 1
   };
 
@@ -18,13 +19,6 @@ discovery.setPrepare(async data => {
       reject
     );
   });
-
-  console.log(
-    `ast finished in ${data.stats.astBuild} ms, size - ${(data.stats.dataSize /
-      1024 /
-      1024) |
-      0} mb, idb: ${JSON.stringify(data.stats.indexeddb)}`
-  );
 
   discovery.addQueryHelpers({
     files: (current, regexp) => {
