@@ -9,12 +9,13 @@ module.exports = {
     return {
       projects: projects.map(project => {
         const { resource, owner, name } = require('git-url-parse')(
-          project.clone_url
+          project.httpsUrl
         );
 
         const full_name = `${resource}/${owner}/${name}`;
 
         return {
+          ...project,
           full_name,
           files: require('./regain/crawler-globby').default(
             `./${full_name}`,

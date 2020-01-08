@@ -1,6 +1,5 @@
 node_modules
 repos
-manifest.json
 
 # Local Netlify folder
 .netlify
