@@ -6,21 +6,36 @@ export async function enhanceAst(data) {
   await initCache();
 
   const cacheKey = 'all-ast';
+  const parserVersion = '1';
   const cache = (await getCache(cacheKey)) || {};
   const nextCache = {};
+  let miss = 0;
 
   for (const project of data.projects) {
     for (const file of project.files) {
-      const fileKey = `${file.path}:${stringHash(file.content)}`;
+      const fileKey = `${file.path}:${parserVersion}:${stringHash(file.content)}`;
 
       let cacheAst = cache[fileKey];
+
       if (!cacheAst) {
-        cacheAst = await parse(file.content, file.path);
+        miss++;
+        cacheAst = {};
+
+        try {
+          cacheAst.ast = await parse(file.content, file.path);
+        } catch (error) {
+          cacheAst.error = error;
+          console.error(`file ${file.path} Babel.parse problem: ${error.message}`);
+        }
       }
 
-      file.ast = nextCache[fileKey] = cacheAst;
+      nextCache[fileKey] = cacheAst;
+      file.ast = cacheAst.ast;
+      file.error = cacheAst.error;
     }
   }
 
-  putCache(cacheKey, nextCache).catch(err => console.error('putCache', err));
+  if (miss > 0) {
+    putCache(cacheKey, nextCache).catch(err => console.error('putCache', err));
+  }
 }
