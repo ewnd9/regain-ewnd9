@@ -23,6 +23,14 @@ discovery.page.define('default', [
         })
       },
       {
+        title: 'Parse errors',
+        query: '.projects.files.[error]',
+        view: JSON.stringify({
+          view: 'ul',
+          item: ['link:{ href: "#file:" + path, text: path }']
+        })
+      },
+      {
         title: "require('fs')",
         query:
           '.projects.files.({path: .path, imports: ast.program.body.[type="VariableDeclaration"].declarations.init.[callee.name="require"].arguments.value}).[imports~=/fs/]',

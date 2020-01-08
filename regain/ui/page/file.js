@@ -14,13 +14,31 @@ discovery.page.define(
                 {
                     content: [
                         "h1:.file.name + ' (' + .full_name + ')'",
+                        {
+                            view: "switch",
+                            content: [
+                                {
+                                    when: ".file.error",
+                                    content: [
+                                        "h3:'parsing error'",
+                                        {
+                                            view: 'source',
+                                            data: data => ({
+                                                content: JSON.stringify(data.file.error, null, 2),
+                                                syntax: 'javascript'
+                                            })
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
                         "h3:'source'",
                         {
                             view: 'source',
                             data: '({ content: .file.content, syntax: "javascript" })'
-                        }
+                        },
                     ]
-                }
+                },
             ]
         }
     },

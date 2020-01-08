@@ -6,7 +6,7 @@ export async function enhanceAst(data) {
   await initCache();
 
   const cacheKey = 'all-ast';
-  const parserVersion = '1';
+  const parserVersion = '2';
   const cache = (await getCache(cacheKey)) || {};
   const nextCache = {};
   let miss = 0;
@@ -24,7 +24,7 @@ export async function enhanceAst(data) {
         try {
           cacheAst.ast = await parse(file.content, file.path);
         } catch (error) {
-          cacheAst.error = error;
+          cacheAst.error = error.message;
           console.error(`file ${file.path} Babel.parse problem: ${error.message}`);
         }
       }

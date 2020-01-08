@@ -2,19 +2,19 @@ import * as parser from '@babel/parser';
 
 export function parse(content, path) {
   if (/\.tsx?$/.test(path)) {
-    return parseTypescript(content, path);
+    return parseTypescript(content);
   } else if (/\.jsx?$/.test(path)) {
-    return parseJavascript(content, path);
+    return parseJavascript(content);
   } else if (/\.json$/.test(path)) {
-    return parseJSON(content, path);
+    return parseJSON(content);
   }
 }
 
-function parseJSON(text, path) {
+function parseJSON(text) {
   return JSON.parse(text);
 }
 
-function parseTypescript(text, path) {
+function parseTypescript(text) {
   return parser.parse(text, {
     // parse in strict mode and allow module declarations
     sourceType: 'module',
@@ -46,7 +46,7 @@ function parseTypescript(text, path) {
   });
 }
 
-function parseJavascript(text, path) {
+function parseJavascript(text) {
   return parser.parse(text, {
     // parse in strict mode and allow module declarations
     sourceType: 'module',
