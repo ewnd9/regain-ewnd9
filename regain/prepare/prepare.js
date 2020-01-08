@@ -4,25 +4,23 @@ import { enhanceAst } from './ast';
 discovery.setPrepare(async data => {
   const date = Date.now();
 
-  if (localStorage['useCache']) {
+  if (!localStorage['noCache']) {
     await enhanceAst(data);
   } else {
     for (const project of data.projects) {
       for (const file of project.files) {
-        file.ast = await parse(file.content, file.path)
+        file.ast = await parse(file.content, file.path);
       }
     }
   }
 
   data.stats = {
-    astBuild: Date.now() - date,
-    // https://stackoverflow.com/a/12205668
-    dataSize: encodeURI(JSON.stringify(data)).split(/%..|./).length - 1
+    astBuild: Date.now() - date
   };
 
   data.stats.indexeddb = await new Promise((resolve, reject) => {
     navigator.webkitTemporaryStorage.queryUsageAndQuota(
-      (used, remaining) => resolve({used, remaining}),
+      (used, remaining) => resolve({ used, remaining }),
       reject
     );
   });

@@ -68,7 +68,6 @@ discovery.page.define('default', [
     view: 'context',
     data: data => [
       `AST build: ${data.stats.astBuild} ms`,
-      `data size: ${prettyBytes(data.stats.dataSize)}`,
       `indexeddb used: ${prettyBytes(data.stats.indexeddb.used)}`,
       `indexeddb remaining: ${prettyBytes(data.stats.indexeddb.remaining)}`,
     ],

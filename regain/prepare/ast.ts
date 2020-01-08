@@ -6,7 +6,7 @@ export async function enhanceAst(data) {
   await initCache();
 
   const cacheKey = 'all-ast';
-  const cache = await getCache(cacheKey) || {};
+  const cache = (await getCache(cacheKey)) || {};
   const nextCache = {};
 
   for (const project of data.projects) {
@@ -22,5 +22,5 @@ export async function enhanceAst(data) {
     }
   }
 
-  await putCache(cacheKey, nextCache);
+  putCache(cacheKey, nextCache).catch(err => console.error('putCache', err));
 }
