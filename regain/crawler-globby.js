@@ -4,7 +4,7 @@ const path = require('path');
 
 // const {parse} = require('./parsers');
 
-exports.default = async function main(paths, options) {
+exports.default = function main(paths, options) {
   const files = globby.sync(paths, {
     expandDirectories: {
       extensions: options.extensions

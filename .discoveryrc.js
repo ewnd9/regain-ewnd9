@@ -4,13 +4,14 @@ module.exports = {
     const manifest = require('./manifest.json');
     const projects = manifest.projects.filter(project => !project.fork);
 
-    return require('./regain/crawler-globby').default(
-      projects
-        .map(project => `./repos/github.com/${project.full_name}`),
-      {
-        extensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
-      }
-    );
+    return {
+      files: require('./regain/crawler-globby').default(
+        projects.map(project => `./repos/github.com/${project.full_name}`),
+        {
+          extensions: ['js', 'jsx', 'ts', 'tsx', 'json']
+        }
+      )
+    };
   },
   cache: false,
   //cache: __dirname + "/regain/.cache",

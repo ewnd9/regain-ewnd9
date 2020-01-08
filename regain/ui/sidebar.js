@@ -1,7 +1,7 @@
 discovery.view.define("sidebar", {
     view: "list",
     data: `
-      $
+      $.files
     `,
     item: [
       {

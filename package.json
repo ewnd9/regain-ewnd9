@@ -9,6 +9,9 @@
     "build:watch": "parcel build regain/ui/index.ts regain/prepare/index.ts --no-minify",
     "deploy": "yarn build && rm -rf .netlify/build && mv build .netlify && netlify deploy"
   },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
   "dependencies": {
     "@babel/parser": "^7.3.1",
     "@discoveryjs/cli": "^1.4.1",

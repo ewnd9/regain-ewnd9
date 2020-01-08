@@ -3,7 +3,7 @@ discovery.page.define("default", [
   {
     view: "list",
     data: `
-      files()
+      .files
     `,
     item: [
       {
