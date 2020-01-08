@@ -7,6 +7,14 @@ discovery.page.define('default', [
     view: 'context',
     data: [
       {
+        title: 'Projects',
+        query: '.projects',
+        view: JSON.stringify({
+          view: 'ul',
+          item: ['link:{ href: "#project:" + full_name, text: full_name }']
+        })
+      },
+      {
         title: 'Files',
         query: '.projects.files',
         view: JSON.stringify({

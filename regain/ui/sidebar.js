@@ -1,12 +1,12 @@
 discovery.view.define("sidebar", {
     view: "list",
     data: `
-      $.projects.files
+      $.projects
     `,
     item: [
       {
         view: "ul",
-        item: ['link:{ href: "#file:" + path, text: path }']
+        item: ['link:{ href: "#project:" + full_name, text: full_name }']
       }
     ]
 });
