@@ -1,13 +1,18 @@
-const { parse } = require('../parsers');
+import { parse } from './parsers';
+import { enhanceAst } from './ast';
 
 discovery.setPrepare(async data => {
   const date = Date.now();
 
-  data.projects.forEach(project => {
-    project.files.forEach(file => {
-      file.ast = parse(file.content, file.path);
-    });
-  });
+  if (localStorage['useCache']) {
+    await enhanceAst(data);
+  } else {
+    for (const project of data.projects) {
+      for (const file of project.files) {
+        file.ast = await parse(file.content, file.path)
+      }
+    }
+  }
 
   data.stats = {
     astBuild: Date.now() - date,

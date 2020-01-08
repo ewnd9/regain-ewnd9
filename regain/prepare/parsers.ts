@@ -1,15 +1,11 @@
-const parser = require('@babel/parser');
+import * as parser from '@babel/parser';
 
-module.exports = {
-  parse
-};
-
-function parse(content, path) {
+export function parse(content, path) {
   if (/\.tsx?$/.test(path)) {
     return parseTypescript(content, path);
   } else if (/\.jsx?$/.test(path)) {
     return parseJavascript(content, path);
-  } else if (/\.json$/.test(path))  {
+  } else if (/\.json$/.test(path)) {
     return parseJSON(content, path);
   }
 }
