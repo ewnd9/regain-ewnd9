@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'Regain',
+  name: 'regain-ewnd9',
   data: () => {
     const manifest = require('./manifest.json');
     const projects = manifest.projects.filter(project => !project.fork);
