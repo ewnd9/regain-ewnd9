@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   name: 'regain-ewnd9',
   data: () => {
@@ -10,12 +12,15 @@ module.exports = {
           project.clone_url
         );
 
+        const full_name = `${resource}/${owner}/${name}`;
+
         return {
-          full_name: project.full_name,
+          full_name,
           files: require('./regain/crawler-globby').default(
-            `./repos/${resource}/${owner}/${name}`,
+            `./${full_name}`,
             {
-              extensions: ['js', 'jsx', 'ts', 'tsx', 'json']
+              extensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
+              cwd: path.resolve(process.cwd(), manifest.output),
             }
           )
         };
