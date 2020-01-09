@@ -1,5 +1,5 @@
-import _prettyBytes from 'pretty-bytes';
-const prettyBytes = num => num > -1 ? prettyBytes(num) : 'unknown';
+import prettyBytes from 'pretty-bytes';
+const prettyBytesOrUnknown = num => num > -1 ? prettyBytes(num) : 'unknown';
 
 discovery.page.define('default', [
   'h1:"regain-ewnd9"',
@@ -77,8 +77,8 @@ discovery.page.define('default', [
     view: 'context',
     data: data => [
       `AST build: ${data.stats.astBuild} ms`,
-      `indexeddb used: ${prettyBytes(data.stats.indexeddb.used)}`,
-      `indexeddb remaining: ${prettyBytes(data.stats.indexeddb.remaining)}`,
+      `indexeddb used: ${prettyBytesOrUnknown(data.stats.indexeddb.used)}`,
+      `indexeddb remaining: ${prettyBytesOrUnknown(data.stats.indexeddb.remaining)}`,
     ],
     content: {
       view: 'ul',
