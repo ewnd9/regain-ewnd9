@@ -18,12 +18,14 @@ discovery.setPrepare(async data => {
     astBuild: Date.now() - date
   };
 
-  data.stats.indexeddb = await new Promise((resolve, reject) => {
-    navigator.webkitTemporaryStorage.queryUsageAndQuota(
-      (used, remaining) => resolve({ used, remaining }),
-      reject
-    );
-  });
+  data.stats.indexeddb = navigator.webkitTemporaryStorage
+    ? await new Promise((resolve, reject) => {
+        navigator.webkitTemporaryStorage.queryUsageAndQuota(
+          (used, remaining) => resolve({ used, remaining }),
+          reject
+        );
+      })
+    : Promise.resolve({ used: -1, remaining: -1 });
 
   discovery.addQueryHelpers({
     files: (current, regexp) => {

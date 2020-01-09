@@ -1,4 +1,5 @@
-import prettyBytes from 'pretty-bytes';
+import _prettyBytes from 'pretty-bytes';
+const prettyBytes = num => num > -1 ? prettyBytes(num) : 'unknown';
 
 discovery.page.define('default', [
   'h1:"regain-ewnd9"',
