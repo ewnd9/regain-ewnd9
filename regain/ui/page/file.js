@@ -29,6 +29,9 @@ discovery.page.define(
                                             })
                                         }
                                     ]
+                                },
+                                {
+                                    content: []
                                 }
                             ]
                         },
