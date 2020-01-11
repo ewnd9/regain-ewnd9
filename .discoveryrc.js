@@ -4,6 +4,7 @@ module.exports = {
   name: 'regain-ewnd9',
   data: () => {
     const manifest = require('./manifest.json');
+    const {crawl} = require('./regain/crawler-globby');
     const projects = manifest.projects.filter(project => !project.fork);
 
     return {
@@ -17,10 +18,9 @@ module.exports = {
         return {
           ...project,
           full_name,
-          files: require('./regain/crawler-globby').default(
+          files: crawl(
             `./${full_name}`,
             {
-              extensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
               cwd: path.resolve(process.cwd(), manifest.output),
             }
           )

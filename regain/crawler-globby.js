@@ -4,10 +4,14 @@ const path = require('path');
 
 // const {parse} = require('./parsers');
 
-exports.default = function main(paths, options) {
+module.exports = {
+  crawl,
+};
+
+function crawl(paths, options) {
   const files = globby.sync(paths, {
     expandDirectories: {
-      extensions: options.extensions
+      extensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'lock'],
     },
     cwd: options.cwd,
   });
@@ -23,6 +27,6 @@ exports.default = function main(paths, options) {
 
     return file;
   });
-};
+}
 
 
