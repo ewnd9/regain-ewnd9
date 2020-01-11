@@ -17,6 +17,7 @@
     "@discoveryjs/cli": "^1.4.1",
     "@discoveryjs/discovery": "^1.0.0-beta.12",
     "@sindresorhus/string-hash": "^1.2.0",
+    "@yarnpkg/lockfile": "^1.1.0",
     "async-directory-tree": "^2.3.1",
     "git-url-parse": "^11.1.2",
     "globby": "^11.0.0",

@@ -1,6 +1,7 @@
 const globby = require('globby');
 const fs = require('fs');
 const path = require('path');
+const lockfile = require('@yarnpkg/lockfile');
 
 // const {parse} = require('./parsers');
 
@@ -21,9 +22,17 @@ function crawl(paths, options) {
 
     file.name = path.basename(filepath);
     file.path = filepath;
-    file.content = fs.readFileSync(path.resolve(options.cwd, filepath), 'utf-8');
-    // file.ast = parse(file.content, filepath);
     file.type = 'file';
+
+    const content = fs.readFileSync(path.resolve(options.cwd, filepath), 'utf-8');
+
+    // `@yarnpkg/lockfile` runs badly in browser
+    if (file.name === 'yarn.lock') {
+      file.content = '';
+      file.ast = lockfile.parse(content).object;
+    } else {
+      file.content = content;
+    }
 
     return file;
   });

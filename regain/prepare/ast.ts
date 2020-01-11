@@ -13,6 +13,10 @@ export async function enhanceAst(data) {
 
   for (const project of data.projects) {
     for (const file of project.files) {
+      if (file.ast) {
+        continue;
+      }
+
       const fileKey = `${file.path}:${parserVersion}:${stringHash(file.content)}`;
 
       let cacheAst = cache[fileKey];

@@ -9,7 +9,9 @@ discovery.setPrepare(async data => {
   } else {
     for (const project of data.projects) {
       for (const file of project.files) {
-        file.ast = await parse(file.content, file.path);
+        if (!file.ast) {
+          file.ast = await parse(file.content, file.path);
+        }
       }
     }
   }
