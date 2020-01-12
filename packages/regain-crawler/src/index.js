@@ -1,25 +1,31 @@
 'use strict';
 
-const gitUrlParse = require('git-url-parse');
-const { traverse } = require('./traverse');
+const globby = require('globby');
+const path = require('path');
 
 module.exports = {
-  crawl
+  traverse
 };
 
-function crawl({ projects, cwd }) {
-  return {
-    projects: projects.map(project => {
-      const { resource, owner, name } = gitUrlParse(project.httpsUrl);
-      const full_name = `${resource}/${owner}/${name}`;
+function traverse(paths, options) {
+  const files = globby.sync(paths, {
+    expandDirectories: {
+      extensions: options.extensions
+    },
+    cwd: options.cwd
+  });
 
-      return {
-        ...project,
-        full_name,
-        files: traverse(`./${full_name}`, {
-          cwd,
-        })
-      };
-    })
-  };
+  return files.map(filepath => {
+    const file = {};
+
+    file.name = path.basename(filepath);
+    file.path = filepath;
+    file.type = 'file';
+
+    const { content, ast } = options.parseFile(file);
+    file.content = content;
+    file.ast = ast;
+
+    return file;
+  });
 }

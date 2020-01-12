@@ -4,7 +4,7 @@ module.exports = {
   name: 'regain-ewnd9',
   data: () => {
     const path = require('path');
-    const { crawl } = require('regain-crawler');
+    const { crawl } = require('regain-crawler-frontend');
     const manifest = require('./manifest.json');
     const projects = manifest.projects.filter(project => !project.fork);
 
