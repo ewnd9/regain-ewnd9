@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
   name: 'regain-ewnd9',
   data: () => {
+    const {crawl} = require('regain-crawler');
     const manifest = require('./manifest.json');
-    const {crawl} = require('./regain/crawler-globby');
     const projects = manifest.projects.filter(project => !project.fork);
 
     return {
@@ -30,9 +30,9 @@ module.exports = {
   },
   cache: false,
   //cache: __dirname + "/regain/.cache",
-  prepare: `${__dirname}/dist/prepare/index.js`,
+  prepare: `${__dirname}/dist/regain-prepare/src/index.js`,
   view: {
     basedir: __dirname,
-    assets: [`${__dirname}/dist/ui/index.js`]
+    assets: [`${__dirname}/dist/regain-ui/src/index.js`]
   }
 };

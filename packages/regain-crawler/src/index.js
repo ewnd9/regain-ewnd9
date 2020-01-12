@@ -3,8 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const lockfile = require('@yarnpkg/lockfile');
 
-// const {parse} = require('./parsers');
-
 module.exports = {
   crawl,
 };

@@ -6,9 +6,12 @@
     "start:dev": "discovery",
     "prebuild": "rm -rf build",
     "build": "discovery-build",
-    "build:watch": "parcel build regain/ui/index.ts regain/prepare/index.ts --no-minify",
+    "build:watch": "parcel build packages/regain-ui/src/index.ts packages/regain-prepare/src/index.ts --no-minify",
     "deploy": "yarn build && rm -rf .netlify/build && mv build .netlify && netlify deploy"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "browserslist": [
     "last 2 Chrome versions"
   ],
