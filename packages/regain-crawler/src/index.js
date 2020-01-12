@@ -35,5 +35,3 @@ function crawl(paths, options) {
     return file;
   });
 }
-
-
