@@ -1,37 +1,25 @@
-const globby = require('globby');
-const fs = require('fs');
-const path = require('path');
-const lockfile = require('@yarnpkg/lockfile');
+'use strict';
+
+const gitUrlParse = require('git-url-parse');
+const { traverse } = require('./traverse');
 
 module.exports = {
-  crawl,
+  crawl
 };
 
-function crawl(paths, options) {
-  const files = globby.sync(paths, {
-    expandDirectories: {
-      extensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'lock'],
-    },
-    cwd: options.cwd,
-  });
+function crawl({ projects, cwd }) {
+  return {
+    projects: projects.map(project => {
+      const { resource, owner, name } = gitUrlParse(project.httpsUrl);
+      const full_name = `${resource}/${owner}/${name}`;
 
-  return files.map(filepath => {
-    const file = {};
-
-    file.name = path.basename(filepath);
-    file.path = filepath;
-    file.type = 'file';
-
-    const content = fs.readFileSync(path.resolve(options.cwd, filepath), 'utf-8');
-
-    // `@yarnpkg/lockfile` runs badly in browser
-    if (file.name === 'yarn.lock') {
-      file.content = '';
-      file.ast = lockfile.parse(content).object;
-    } else {
-      file.content = content;
-    }
-
-    return file;
-  });
+      return {
+        ...project,
+        full_name,
+        files: traverse(`./${full_name}`, {
+          cwd,
+        })
+      };
+    })
+  };
 }
