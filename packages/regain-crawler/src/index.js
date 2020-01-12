@@ -2,12 +2,32 @@
 
 const globby = require('globby');
 const path = require('path');
+const gitUrlParse = require('git-url-parse');
 
 module.exports = {
   traverse
 };
 
-function traverse(paths, options) {
+function traverse({ projects, cwd, parseFile, extensions }) {
+  return {
+    projects: projects.map(project => {
+      const { resource, owner, name } = gitUrlParse(project.httpsUrl);
+      const full_name = `${resource}/${owner}/${name}`;
+
+      return {
+        ...project,
+        full_name,
+        files: traverseProject(`./${full_name}`, {
+          cwd,
+          extensions,
+          parseFile
+        })
+      };
+    })
+  };
+}
+
+function traverseProject(paths, options) {
   const files = globby.sync(paths, {
     expandDirectories: {
       extensions: options.extensions
