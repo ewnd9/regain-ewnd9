@@ -5,7 +5,7 @@ module.exports = {
   data: () => {
     const path = require('path');
     const { crawl } = require('regain-crawler-frontend');
-    const manifest = require('./manifest.json');
+    const manifest = require('./.sync-repos.json');
     const projects = manifest.projects.filter(project => !project.fork);
 
     return crawl({

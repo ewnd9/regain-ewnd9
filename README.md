@@ -13,6 +13,7 @@ $ yarn install
 ## Usage
 
 ```sh
+$ yarn sync-repos
 $ yarn start:dev
 ```
 
