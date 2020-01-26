@@ -10,7 +10,7 @@
     "build:parcel": "parcel build packages/regain-ui/src/index.ts packages/regain-prepare/src/index.ts --no-minify",
     "build:parcel:watch": "nodemon",
     "sync-repos": "sync-repos --pull",
-    "deploy": "yarn build && rm -rf .netlify/build && mv build .netlify && netlify deploy"
+    "deploy": "yarn build && netlify deploy --dir build"
   },
   "workspaces": [
     "packages/*"
